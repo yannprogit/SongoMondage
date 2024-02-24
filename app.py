@@ -1,9 +1,12 @@
 from config.config import app
 from routes.sondage_route import sondage_blueprint
-#from routes.sondage_routes import sondage_blueprint
+from routes.utilisateur_route import util_blueprint
+from routes.connexion_route import connexion_blueprint
 
 #Enregistrement des routes
 app.register_blueprint(sondage_blueprint)
+app.register_blueprint(util_blueprint)
+app.register_blueprint(connexion_blueprint)
 
 @app.route("/")
 def hello_world():
