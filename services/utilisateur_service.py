@@ -7,7 +7,7 @@ class UtilService:
     def add_util(utilisateur):
         try:
             UtilService.collection.insert_one(utilisateur)
-            return True  # L'ajout a réussi
+            return True 
         except Exception as e:
             print(f"Erreur lors de l'ajout de l'utilisateur : {e}")
-            return False  # L'ajout a échoué
+            return False 
