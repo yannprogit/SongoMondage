@@ -35,13 +35,14 @@ class SondageService:
         try:
             SondageService.collection.update_one({'_id': ObjectId(id)}, nouveau_sondage)
             return True 
-        except Exception:
+        except Exception as e:
+            print(f"Erreur lors de l'ajout de l'utilisateur : {e}")
             return False 
         
     @staticmethod
     def name_exists(id, nom):
         filtre = {"$and": [{"nom": nom}]}
         if id:
-            filtre["$and"].append({"_id": {"$ne": object(id)}})
+            filtre["$and"].append({"_id": {"$ne": ObjectId(id)}})
 
         return SondageService.collection.find_one(filtre)
