@@ -1,4 +1,4 @@
-#Import
+#Import #/65db7144c89726ca773e5a69
 from pymongo import MongoClient
 from bson import ObjectId
 
@@ -17,34 +17,57 @@ def create_database():
         reponses_collection = database['reponses']
 
         #Données utilisateurs
-        utilisateur_data = {
-            "_id": ObjectId("5f3a3c1c1234567890123456"),
-            "nom": "OuiMan",
-            "mail": "ouiman@gmail.com",
-            "mdp": "$2a$10$/waLFVGGYGQhjlP5X9XzMOPAWiWjfiRy2ZIfIvPzOPO8Cc1Uaqb1."
-        }
-        utilisateurs_collection.insert_one(utilisateur_data)
+        utilisateurs_data = [
+            {
+                "_id": ObjectId("5f3a3c1c1234567890123456"),
+                "nom": "OuiMan",
+                "mail": "ouiman@gmail.com",
+                "mdp": "$2a$10$/waLFVGGYGQhjlP5X9XzMOPAWiWjfiRy2ZIfIvPzOPO8Cc1Uaqb1."
+            },
+            {
+                "_id": ObjectId("65db7144c89726ca773e5a69"),
+                "nom": "NonMan",
+                "mail": "nonman@gmail.com",
+                "mdp": "$2a$10$/waLFVGGYGQhjlP5X9XzMOPAWiWjfiRy2ZIfIvPzOPO8Cc1Uaqb1."  
+            }
+        ]
+
+        utilisateurs_collection.insert_many(utilisateurs_data)
 
         #Données sondages
-        sondage_data = {
-            "_id": ObjectId("5f3a3c1c1234567890123456"),
-            "nom": "Sondage Préférences Alimentaires",
-            "createur": ObjectId("5f3a3c1b1234567890123456"),
-            "questions": [
-                {
-                    "_id": ObjectId("5f3a3c1d1234567890123456"),
-                    "intitule": "Quel est votre plat préféré ?",
-                    "type": "ouverte"
-                },
-                {
-                    "_id": ObjectId("5f3a3c1e1234567890123456"),
-                    "intitule": "Quels types de cuisine préférez-vous ?",
-                    "type": "qcm",
-                    "reponses": ["Italienne", "Chinoise", "Mexicaine", "Indienne"]
-                }
-            ]
-        }
-        sondages_collection.insert_one(sondage_data)
+        sondages_data = [
+            {
+                "_id": ObjectId("5f3a3c1c1234567890123456"),
+                "nom": "Sondage Préférences Alimentaires",
+                "createur": ObjectId("5f3a3c1b1234567890123456"),
+                "questions": [
+                    {
+                        "_id": ObjectId("5f3a3c1d1234567890123456"),
+                        "intitule": "Quel est votre plat préféré ?",
+                        "type": "ouverte"
+                    },
+                    {
+                        "_id": ObjectId("5f3a3c1e1234567890123456"),
+                        "intitule": "Quels types de cuisine préférez-vous ?",
+                        "type": "qcm",
+                        "reponses": ["Italienne", "Chinoise", "Mexicaine", "Indienne"]
+                    }
+                ]
+            },
+            {
+                "_id": ObjectId("65db7144c89726ca773e5a69"),  
+                "nom": "Sondage Couleurs Préférées",
+                "createur": ObjectId("65db7144c89726ca773e5a69"), 
+                "questions": [
+                    {
+                        "_id": ObjectId("65db7144c89726ca773e5a69"),
+                        "intitule": "Quelle est votre couleur préférée ?",
+                        "type": "ouverte"
+                    }
+                ]
+            }
+        ]
+        sondages_collection.insert_many(sondages_data)
 
         #Données réponses
         reponse_data = {

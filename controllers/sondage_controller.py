@@ -68,8 +68,12 @@ class SondageController:
     @staticmethod
     def upd_sondage(id, data):
         sondage = SondageService.get_sondage(id)
+        
         if not sondage:
             return jsonify({"sucess": False, "message": "Ce sondage n'existe pas"}), 404
+        elif str(request.util_id)!=str(sondage['createur']):
+            print(request.util_id == sondage['createur'])
+            return jsonify({"sucess": False, "message": "Ce sondage ne vous appartient pas"}), 403
         elif not SondageService.name_exists(id, data['nom']):
             return jsonify({"sucess": False, "message": "Le nom est déjà pris, veuillez choisir un autre nom"}), 422
         else:

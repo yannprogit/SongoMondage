@@ -10,7 +10,10 @@ class SondageService:
     
     @staticmethod
     def get_sondage(id):
-        return SondageService.collection.find_one({'_id': ObjectId(id)})
+        try:
+            return SondageService.collection.find_one({'_id': ObjectId(id)})
+        except Exception:
+            return None
     
     @staticmethod
     def add_sondage(sondage):
