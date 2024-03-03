@@ -2,7 +2,6 @@ from config.config import db
 from flask import jsonify, request
 import jwt
 from datetime import datetime, timedelta
-#from dotenv import load_dotenv
 import os
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
