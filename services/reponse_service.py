@@ -16,3 +16,17 @@ class ReponseService:
         except Exception as e:
             print(f"Erreur lors de l'ajout de l'utilisateur : {e}")
             return False 
+        
+    @staticmethod
+    def get_reponses(sondage_id):
+        try:
+            return ReponseService.collection.find({'sondage_id': ObjectId(sondage_id)})
+        except Exception:
+            return None
+    
+    @staticmethod
+    def get_reponse(id):
+        try:
+            return ReponseService.collection.find_one({'_id': ObjectId(id)})
+        except Exception:
+            return None
