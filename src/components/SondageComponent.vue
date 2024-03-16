@@ -1,69 +1,35 @@
-<!-- SondageDetails.vue -->
 <template>
     <div>
-      <div v-if="sondage">
-        <h3>{{ sondage.nom }}</h3>
-
-        <form @submit.prevent="submitForm">
-          <div v-for="question in sondage.questions" :key="question._id">
-
+      <h3>{{ sondage.nom }}</h3>
+      <form @submit.prevent="submitForm">
+        <div v-for="question in sondage.questions" :key="question._id">
           <p>{{ question.intitule }}</p>
-          <div v-if="question.type=='qcm'">
+          <div v-if="question.type === 'qcm'">
             <div v-for="reponse in question.reponses" :key="reponse">
-            <label >
-              <input
-              type="checkbox"
-              :name="question._id"
-              :value="reponse"
-              />
-              {{ reponse }}
-            </label>
+              <label>
+                <input type="checkbox" :name="question._id" :value="reponse" />
+                {{ reponse }}
+              </label>
             </div>
           </div>
           <div v-else>
-            <input type="text" :required="true" :id="question._id"/>
+            <input type="text" :required="true" :id="question._id" />
           </div>
         </div>
         <button type="submit">Envoyer</button>
-        </form>
-      </div>
-      <div v-else>
-        <p>Le sondage n'a pas été trouvé.</p>
-      </div>
+      </form>
     </div>
   </template>
   
   <script>
   import axios from 'axios';
-  
+
   export default {
     props: {
-      id: {
-        type: String,
-        required: true,
-      },
-    },
-    data() {
-      return {
-        sondage: null,
-      };
-    },
-    mounted() {
-        const token = localStorage.getItem('token');
-
-        if (token) {
-            axios.get(`http://127.0.0.1:8080/sondages/${this.id}`, {
-            headers: {
-                'Authorization': `${token}`
-            }
-            })
-            .then(response => {
-            this.sondage = response.data.sondage;
-            })
-            .catch(error => {
-            console.error('Erreur lors de la récupération du sondage:', error);
-            });
-        }
+      sondage: {
+        type: Object,
+        required: true
+      }
     },
     methods: {
       submitForm() {
@@ -98,7 +64,8 @@
           const data = {
           reponses: reponses,
           };
-          axios.post(`http://127.0.0.1:8080/sondages/${this.id}/reponse`, data, {
+
+          axios.post(`http://127.0.0.1:8080/sondages/${this.sondage._id}/reponse`, data, {
             headers: {
               'Authorization': `${token}`,
             },
@@ -107,13 +74,13 @@
             alert('Réponses envoyées avec succès');
           })
           .catch((error) => {
-            alert('Erreur lors de l\'envoi des réponses:', error);
+            console.log('Erreur lors de l\'envoi des réponses:', error);
           });
         }
       }
     }
   };
-</script>
+  </script>
   
   <style scoped>
   </style>

@@ -1,5 +1,6 @@
 <template>
     <div class="sondage">
+      <h2>Liste des Sondages</h2>
       <SondageListComponent :sondages="sondages" />
     </div>
   </template>
