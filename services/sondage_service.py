@@ -9,6 +9,10 @@ class SondageService:
         return SondageService.collection.find({})
     
     @staticmethod
+    def get_mes_sondages(util_id):
+        return SondageService.collection.find({'createur': ObjectId(util_id)})
+    
+    @staticmethod
     def get_sondage(id):
         try:
             return SondageService.collection.find_one({'_id': ObjectId(id)})

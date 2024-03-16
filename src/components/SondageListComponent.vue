@@ -1,6 +1,6 @@
 <template>
       <div v-for="sondage in sondages" :key="sondage._id">
-        <router-link :to="{ name: 'sondage-details', params: { id: sondage._id } }">
+        <router-link :to="{ name: 'sondage', params: { id: sondage._id } }">
         <h3>{{ sondage.nom }}</h3>
         </router-link>
         <p>Créateur: {{ sondage.createur }}</p>

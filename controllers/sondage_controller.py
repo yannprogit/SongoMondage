@@ -8,6 +8,12 @@ class SondageController:
         sondages = SondageService.get_sondages()
         sondages_json = [SondageController.convertir_sondage_json(sondage) for sondage in sondages]
         return jsonify({"sondages": sondages_json}), 200
+    
+    @staticmethod
+    def get_mes_sondages():
+        sondages = SondageService.get_mes_sondages(request.util_id)
+        sondages_json = [SondageController.convertir_sondage_json(sondage) for sondage in sondages]
+        return jsonify({"sondages": sondages_json}), 200
 
     @staticmethod
     def add_sondage(data):

@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ConnexionView from '../views/ConnexionView.vue'
-import SondageListView from '../views/SondageListView.vue'
+import SondagesListView from '../views/SondagesListView.vue'
 import SondageView from '../views/SondageView.vue'
+import MesSondagesListView from '../views/MesSondagesListView.vue'
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('token');
@@ -11,7 +12,19 @@ const routes = [
   {
     path: '/',
     name: 'sondages',
-    component: SondageListView,
+    component: SondagesListView,
+    beforeEnter: (to, from, next) => {
+      if (isAuthenticated()) {
+        next();
+      } else {
+        next('/connexion');
+      }
+    }
+  },
+  {
+    path: '/mes_sondages',
+    name: 'mes_sondages',
+    component: MesSondagesListView,
     beforeEnter: (to, from, next) => {
       if (isAuthenticated()) {
         next();
@@ -34,7 +47,7 @@ const routes = [
   },
   {
     path: '/sondages/:id',
-    name: 'sondage-details',
+    name: 'sondage',
     component: SondageView,
     props: true, 
     beforeEnter: (to, from, next) => {
