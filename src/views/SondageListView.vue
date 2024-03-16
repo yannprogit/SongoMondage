@@ -1,17 +1,17 @@
 <template>
     <div class="sondage">
-      <SondageComponent :sondages="sondages" />
+      <SondageListComponent :sondages="sondages" />
     </div>
   </template>
   
   <script>
   import axios from 'axios';
-  import SondageComponent from '@/components/SondageComponent.vue';
+  import SondageListComponent from '@/components/SondageListComponent.vue';
   
   export default {
-    name: 'SondageView',
+    name: 'SondageListView',
     components: {
-      SondageComponent
+      SondageListComponent
     },
     data() {
       return {

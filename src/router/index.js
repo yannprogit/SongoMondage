@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ConnexionView from '../views/ConnexionView.vue'
-import SondageView from '../views/SondageView.vue'
+import SondageListView from '../views/SondageListView.vue'
 import SondageDetailsView from '../views/SondageDetailsView.vue'
 
 const isAuthenticated = () => {
@@ -10,8 +10,8 @@ const isAuthenticated = () => {
 const routes = [
   {
     path: '/',
-    name: 'sondage',
-    component: SondageView,
+    name: 'sondages',
+    component: SondageListView,
     beforeEnter: (to, from, next) => {
       if (isAuthenticated()) {
         next();
@@ -48,10 +48,7 @@ const routes = [
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import('../views/AboutView.vue')
   }
 ]
 
