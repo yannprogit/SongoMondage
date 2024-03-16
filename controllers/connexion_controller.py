@@ -65,8 +65,7 @@ class ConnexionController:
     def generate_token(util):
         payload = {
             'id': str(util['_id']), 
-            'mail': util['mail'],
-            'exp': datetime.utcnow() + timedelta(seconds=3600)
+            'mail': util['mail']
         }
         token = jwt.encode(payload, ConnexionController.secret_key, algorithm='HS256')
         return token
