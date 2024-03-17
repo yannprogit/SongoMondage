@@ -1,7 +1,7 @@
 <template>
   <nav>
     <router-link to="/">Sondages</router-link>
-    <router-link to="/mes_sondages">Mes sondages</router-link>
+    <router-link to="/mes-sondages">Mes sondages</router-link>
     <router-link to="/about">About</router-link>
     <button @click="logout">Déconnexion</button>
   </nav>

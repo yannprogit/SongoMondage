@@ -23,7 +23,7 @@ class SondageService:
     def add_sondage(sondage):
         try:
             SondageService.collection.insert_one(sondage)
-            return True 
+            return True
         except Exception:
             return False 
         

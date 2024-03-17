@@ -1,6 +1,9 @@
 <template>
     <div class="sondage">
       <h2>Mes Sondages</h2>
+      <router-link to="/ajout-sondage">
+        <button>Ajouter</button>
+      </router-link>
       <SondageListComponent :sondages="sondages" />
     </div>
   </template>

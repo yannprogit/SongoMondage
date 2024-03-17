@@ -33,7 +33,7 @@
     },
     methods: {
       submitForm() {
-        let qcmQuestions = this.sondage.questions.filter(question => question.type === 'qcm');
+        let qcmQuestions = this.sondage.questions.filter(question => question.type == 'qcm');
 
         for (let i = 0; i < qcmQuestions.length; i++) {
             let question = qcmQuestions[i];
@@ -72,6 +72,7 @@
           })
           .then(() => {
             alert('Réponses envoyées avec succès');
+            this.$router.push('/');
           })
           .catch((error) => {
             console.log('Erreur lors de l\'envoi des réponses:', error);
