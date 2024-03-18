@@ -72,7 +72,7 @@
         for (let i = 0; i < qcmQuestions.length; i++) {
             let question = qcmQuestions[i];
             let checkedInputs = document.querySelectorAll(`input[type="checkbox"][name="${question._id}"]:checked`);
-            if (checkedInputs.length === 0) {
+            if (checkedInputs.length == 0) {
                 alert(`Vous devez cocher au moins une réponse pour la question "${question.intitule}"`);
                 return;
             }
