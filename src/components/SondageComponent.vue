@@ -4,7 +4,7 @@
       <div v-if="isCreateur()">
         <router-link :to="{ name: 'reponses', params: { id: sondage._id } }">Voir les réponses</router-link>
         <a>Modifier</a>
-        <a>Supprimer</a>
+        <a @click="delSondage">Supprimer</a>
       </div>
       <form @submit.prevent="submitForm">
         <div v-for="question in sondage.questions" :key="question._id">
@@ -38,6 +38,25 @@
       }
     },
     methods: {
+      delSondage() {
+        const token = localStorage.getItem('token');
+        if (token) {
+          axios.delete(`http://127.0.0.1:8080/sondages/${this.sondage._id}`, {
+            headers: {
+              'Authorization': `${token}`,
+            },
+          })
+          .then(() => {
+            alert('Sondage supprimé !');
+            this.$router.push('/mes-sondages');
+          })
+          .catch((error) => {
+            console.log('Erreur lors de la suppression :', error);
+          });
+        } else {
+          this.$router.push('/connexion');
+        }
+      },
       isCreateur() {
         const token = localStorage.getItem('token');
         if (token) {
