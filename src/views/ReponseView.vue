@@ -1,0 +1,68 @@
+<template>
+    <div>
+      <div v-if="sondage && reponse">
+        <ReponseComponent :sondage="sondage" :reponse="reponse"/>
+      </div>
+      <div v-else>
+        <p>La réponse n'a pas été trouvé.</p>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  import axios from 'axios';
+  import ReponseComponent from '@/components/ReponseComponent.vue';
+  
+  export default {
+    props: {
+      id: {
+        type: String,
+        required: true
+      },
+      sondage_id: {
+        type: String,
+        required: true
+      }
+    },
+    components: {
+      ReponseComponent
+    },
+    data() {
+      return {
+        sondage: null,
+        reponse: null
+      };
+    },
+    mounted() {
+      const token = localStorage.getItem('token');
+      if (token) {
+        axios.get(`http://127.0.0.1:8080/sondages/${this.sondage_id}`, {
+        headers: {
+          'Authorization': `${token}`
+            }
+        })
+        .then(response => {
+            this.sondage = response.data.sondage;
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération du sondage:', error);
+        });
+        
+        axios.get(`http://127.0.0.1:8080/sondages/${this.sondage_id}/reponses/${this.id}`, {
+          headers: {
+            'Authorization': `${token}`
+          }
+        })
+        .then(response => {
+          this.reponse = response.data.reponse;
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération de la réponse:', error);
+        });
+      }
+    }
+  };
+  </script>
+    
+    <style scoped>
+    </style>

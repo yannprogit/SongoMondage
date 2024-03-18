@@ -58,7 +58,7 @@ class ReponseController:
             if str(request.util_id)==str(sondage['createur']):
                 reponse = ReponseService.get_reponse(id)
                 if reponse :
-                    return jsonify({"sucess": True, "sondage": ReponseController.convertir_reponse_json(reponse)}), 200
+                    return jsonify({"sucess": True, "reponse": ReponseController.convertir_reponse_json(reponse)}), 200
                 else :
                     return jsonify({"sucess": False, "message": "Cette réponse n'existe pas"}), 404
             else :

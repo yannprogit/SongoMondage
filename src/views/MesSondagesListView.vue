@@ -4,18 +4,18 @@
       <router-link to="/ajout-sondage">
         <button>Ajouter</button>
       </router-link>
-      <SondageListComponent :sondages="sondages" />
+      <SondagesListComponent :sondages="sondages" />
     </div>
   </template>
   
   <script>
   import axios from 'axios';
-  import SondageListComponent from '@/components/SondageListComponent.vue';
+  import SondagesListComponent from '@/components/SondagesListComponent.vue';
   
   export default {
     name: 'SondageListView',
     components: {
-      SondageListComponent
+      SondagesListComponent
     },
     data() {
       return {

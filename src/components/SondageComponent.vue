@@ -1,6 +1,11 @@
 <template>
     <div>
       <h3>{{ sondage.nom }}</h3>
+      <div v-if="isCreateur()">
+        <router-link :to="{ name: 'reponses', params: { id: sondage._id } }">Voir les réponses</router-link>
+        <a>Modifier</a>
+        <a>Supprimer</a>
+      </div>
       <form @submit.prevent="submitForm">
         <div v-for="question in sondage.questions" :key="question._id">
           <p>{{ question.intitule }}</p>
@@ -23,6 +28,7 @@
   
   <script>
   import axios from 'axios';
+  import VueJwtDecode from 'vue-jwt-decode'
 
   export default {
     props: {
@@ -32,6 +38,15 @@
       }
     },
     methods: {
+      isCreateur() {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const decodedToken = VueJwtDecode.decode(token);
+          return this.sondage.createur == decodedToken.id;
+        } else {
+          this.$router.push('/connexion');
+        }
+      },
       submitForm() {
         let qcmQuestions = this.sondage.questions.filter(question => question.type == 'qcm');
 
@@ -77,6 +92,8 @@
           .catch((error) => {
             console.log('Erreur lors de l\'envoi des réponses:', error);
           });
+        } else {
+          this.$router.push('/connexion');
         }
       }
     }
