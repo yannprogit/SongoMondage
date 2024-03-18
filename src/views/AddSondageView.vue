@@ -3,9 +3,9 @@
       <h2>Nouveau sondage</h2>
       <SondageFormComponent :mode="'add'"/>
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
   import SondageFormComponent from '@/components/SondageFormComponent.vue';
   
   export default {

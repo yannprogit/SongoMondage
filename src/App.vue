@@ -10,17 +10,8 @@
 
 <script>
 export default {
-  data() {
-    return {
-      isLoggedIn: false,
-    };
-  },
   methods: {
-    login() {
-      this.isLoggedIn = true;
-    },
     logout() {
-      this.isLoggedIn = false;
       localStorage.removeItem('token');
       this.$router.push('/connexion');
     },
