@@ -40,8 +40,12 @@ export default {
             localStorage.setItem('token', token);
             this.$router.push('/');
           })
-          .catch((error) => {
-            console.log('Erreur lors de la connexion :', error);
+          .catch(error => {
+            if (error.response && error.response.status == 401) {
+              alert(error.response.data.message);
+            } else {
+              alert('Une erreur est survenue lors de la connexion.');
+            }
           });
     }
   }
