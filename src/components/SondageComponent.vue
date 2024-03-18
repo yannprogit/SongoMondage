@@ -51,6 +51,7 @@
             this.$router.push('/mes-sondages');
           })
           .catch((error) => {
+            alert('Une erreur est survenue lors de la suppression');
             console.log('Erreur lors de la suppression :', error);
           });
         } else {
