@@ -1,6 +1,6 @@
 <template>
     <div class="sondage">
-      <h2>Liste des Sondages</h2>
+      <div class="background_bubble"><h2>Liste des Sondages</h2></div><br>
       <SondagesListComponent :sondages="sondages" />
     </div>
   </template>

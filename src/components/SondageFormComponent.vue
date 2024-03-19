@@ -2,8 +2,8 @@
   <div>
     <form @submit.prevent="addSondage">
       <div>
-        <div>Nom du sondage : <input type="text" v-model="nom" :required="true"/></div>
-        <div v-for="(question, questionIndex) in questions" :key="questionIndex">
+        <div class="background_bubble">Nom du sondage : <input type="text" v-model="nom" :required="true"/></div>
+        <div v-for="(question, questionIndex) in questions" :key="questionIndex" class="background_bubble">
           <div>
             Intitulé : <input type="text" v-model="question.intitule" :required="true"/>
           </div>

@@ -1,24 +1,26 @@
 <template>
     <div>
-      <h3>{{ sondage.nom }}</h3>
+      <div class="background_bubble"><h3>{{ sondage.nom }}</h3></div>
       <div v-if="isCreateur()">
         <router-link :to="{ name: 'reponses', params: { id: sondage._id } }">Voir les réponses</router-link>
         <a>Modifier</a>
         <a @click="delSondage">Supprimer</a>
       </div>
       <form @submit.prevent="submitForm">
-        <div v-for="question in sondage.questions" :key="question._id">
+        <div v-for="question in sondage.questions" :key="question._id" class="background_bubble">
           <p>{{ question.intitule }}</p>
-          <div v-if="question.type === 'qcm'">
-            <div v-for="reponse in question.reponses" :key="reponse">
-              <label>
-                <input type="checkbox" :name="question._id" :value="reponse" />
-                {{ reponse }}
-              </label>
-            </div>
+          <div v-if="question.type == 'qcm'">
+            <table align="center">
+              <tbody>
+                  <tr v-for="reponse in question.reponses" :key="reponse">
+                      <td><input type="checkbox" :name="question._id" :value="reponse" /></td>
+                      <td align="left"><label>{{ reponse }}</label></td>
+                  </tr>
+              </tbody>
+            </table>
           </div>
           <div v-else>
-            <input type="text" :required="true" :id="question._id" />
+            <input type="text" :required="true" :id="question._id" autocomplete="off"/>
           </div>
         </div>
         <button type="submit">Envoyer</button>

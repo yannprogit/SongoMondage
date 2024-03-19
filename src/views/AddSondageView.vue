@@ -1,6 +1,6 @@
 <template>
     <div class="sondageForm">
-      <h2>Nouveau sondage</h2>
+      <div class="background_bubble"><h2>Nouveau sondage</h2></div>
       <SondageFormComponent :mode="'add'"/>
     </div>
 </template>

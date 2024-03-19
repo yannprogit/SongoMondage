@@ -3,7 +3,7 @@
       <div v-if="sondage && reponse">
         <ReponseComponent :sondage="sondage" :reponse="reponse"/>
       </div>
-      <div v-else>
+      <div v-else class="background_bubble">
         <p>La réponse n'a pas été trouvé.</p>
       </div>
     </div>

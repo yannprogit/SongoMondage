@@ -1,7 +1,7 @@
 <template>
     <div>
-      <h3>{{ sondage.nom }}</h3>
-        <div v-for="(question, questionIndex) in sondage.questions" :key="questionIndex">
+      <div class="background_bubble"><h3>{{ sondage.nom }}</h3></div>
+        <div v-for="(question, questionIndex) in sondage.questions" :key="questionIndex" class="background_bubble">
           <p>{{ question.intitule }}</p>
           <div v-if="question.type == 'qcm'">
             <div v-for="qReponse in question.reponses" :key="qReponse">
@@ -33,5 +33,8 @@
   };
   </script>
   
-  <style scoped>
-  </style>
+<style scoped>
+input[type="text"]:disabled {
+  color: initial; 
+} 
+</style>
