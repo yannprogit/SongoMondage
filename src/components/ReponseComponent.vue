@@ -4,12 +4,14 @@
         <div v-for="(question, questionIndex) in sondage.questions" :key="questionIndex" class="background_bubble">
           <p>{{ question.intitule }}</p>
           <div v-if="question.type == 'qcm'">
-            <div v-for="qReponse in question.reponses" :key="qReponse">
-              <label>
-                <input type="checkbox" :value="qReponse" :checked="reponse.reponses[questionIndex].reponse.includes(qReponse)" disabled/> 
-                {{ qReponse }}
-              </label>
-            </div>
+            <table align="center">
+              <tbody>
+                  <tr v-for="qReponse in question.reponses" :key="qReponse">
+                      <td><input type="checkbox" :value="qReponse" :checked="reponse.reponses[questionIndex].reponse.includes(qReponse)" disabled/></td>
+                      <td align="left"><label>{{ qReponse }}</label></td>
+                  </tr>
+              </tbody>
+            </table>
           </div>
           <div v-else>
             <input type="text" :value="reponse.reponses[questionIndex].reponse" disabled/> 

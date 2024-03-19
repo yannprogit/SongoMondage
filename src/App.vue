@@ -48,8 +48,27 @@ export default {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+button {
+    background-color: #207D8F;
+    color: white;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    padding: 5px 20px; 
+    cursor: pointer;
+    font-weight: bold; 
+    letter-spacing: 1px; 
+    transition: background-color 0.3s ease; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: transparent;
+    border-color: #207D8F; 
+    color: #207D8F; 
+}
+
 input[type="text"], input[type="password"] {
-    background-color: #99f3ca;
+    background-color: #43c088;
     border: none;
     border-radius: 5px; 
     padding: 5px;
@@ -63,7 +82,7 @@ input[type="checkbox"] {
     appearance: none;
     width: 15px;
     height: 15px;
-    border: 2px solid #edd504;
+    border: 2px solid #E6DD2B;
     border-radius: 3px;
     position: relative;
     top: 1px;
@@ -76,7 +95,7 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]::before {
     content: "\2713"; 
     font-size: 12px; 
-    color: #edd504; 
+    color: #E6DD2B; 
     position: absolute;
     font-weight: bold;
     top: 50%;
@@ -136,6 +155,12 @@ nav a {
   padding: 0 5px;
   font-weight: bold;
   color: #2c3e50;
+  transition: color 0.3s ease-in-out, text-decoration 3s ease-in-out;
+}
+
+nav a:hover {
+  color: #207D8F;
+  text-decoration: underline;
 }
 
 nav img {
@@ -145,7 +170,8 @@ nav img {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #207D8F;
+  text-decoration: underline;
 }
 
 body {

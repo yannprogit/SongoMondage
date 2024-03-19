@@ -17,13 +17,14 @@
           <div v-if="question.type == 'qcm'">
             <div v-for="(reponse, reponseIndex) in question.reponses" :key="reponseIndex">
               Réponse {{ reponseIndex + 1 }} : <input type="text" v-model="question.reponses[reponseIndex]" :required="true"/>
-              <button v-if="reponseIndex+1>2" @click.prevent="delReponse(question, reponseIndex)">-</button>
+              <button class="delete-button" v-if="reponseIndex+1>2" @click.prevent="delReponse(question, reponseIndex)">-</button>
             </div>
-            <button @click.prevent="addReponse(question)">Ajouter une reponse</button>
+            <button @click.prevent="addReponse(question)">Ajouter une réponse</button>
           </div>
         </div>
-        <button @click.prevent="addQuestion">+</button>
+        <button @click.prevent="addQuestion">Ajouter une question</button>
       </div>
+      <br>
       <button type="submit">Créer</button>
     </form>
   </div>
@@ -95,4 +96,22 @@ export default {
 </script>
 
 <style scoped>
+.delete-button {
+  background-color: #8f2020;
+    color: white;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px; 
+    cursor: pointer;
+    font-weight: bold; 
+    letter-spacing: 1px; 
+    transition: background-color 0.3s ease; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.delete-button:hover {
+  background-color: transparent;
+    border-color: #8f2020; 
+    color: #8f2020; 
+}
 </style>

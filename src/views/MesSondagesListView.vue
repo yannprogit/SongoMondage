@@ -1,6 +1,6 @@
 <template>
     <div class="sondage">
-      <h2>Mes Sondages</h2>
+      <div class="background_bubble"><h2>Mes Sondages</h2></div>
       <router-link to="/ajout-sondage">
         <button>Ajouter</button>
       </router-link>

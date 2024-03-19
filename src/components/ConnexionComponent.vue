@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="background_bubble">
     <h1>Page de Connexion</h1>
     <form @submit.prevent="login">
       <label for="mail">Mail:</label>

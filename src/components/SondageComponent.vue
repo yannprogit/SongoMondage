@@ -1,9 +1,9 @@
 <template>
     <div>
       <div class="background_bubble"><h3>{{ sondage.nom }}</h3></div>
-      <div v-if="isCreateur()">
+      <div v-if="isCreateur()" class="sondage_menu">
         <router-link :to="{ name: 'reponses', params: { id: sondage._id } }">Voir les réponses</router-link>
-        <a>Modifier</a>
+        <router-link :to="{ name: 'reponses', params: { id: sondage._id } }">Modifier</router-link>
         <a @click="delSondage">Supprimer</a>
       </div>
       <form @submit.prevent="submitForm">
@@ -120,8 +120,29 @@
       }
     }
   };
-  </script>
+</script>
   
-  <style scoped>
-  </style>
+<style scoped>
+.sondage_menu {
+  background-image: linear-gradient(to bottom, #13b4a4, #207D8F);
+  padding: 10px 10px 10px 10px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sondage_menu a {
+  text-decoration: none;
+  padding: 0 5px;
+  font-weight: bold;
+  color: #2c3e50;
+  transition: color 0.3s ease-in-out, text-decoration 3s ease-in-out;
+}
+
+.sondage_menu a:hover {
+  color: #edd504;
+  text-decoration: underline;
+}
+</style>
   

@@ -1,10 +1,10 @@
 <template>
     <div class="reponse">
-      <h2>Liste des réponses</h2>
+      <div class="background_bubble"><h2>Liste des réponses</h2></div>
       <div v-if="reponses.size!=0">
         <ReponsesListComponent :reponses="reponses" />
       </div>
-      <div v-else>
+      <div v-else class="background_bubble">
         <p>Aucune réponses</p>
       </div>
     </div>
