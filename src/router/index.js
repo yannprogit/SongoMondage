@@ -4,6 +4,7 @@ import SondagesListView from '../views/SondagesListView.vue'
 import SondageView from '../views/SondageView.vue'
 import MesSondagesListView from '../views/MesSondagesListView.vue'
 import AddSondageView from '../views/AddSondageView.vue'
+import UpdSondageView from '../views/UpdSondageView.vue'
 import ReponseView from '../views/ReponseView.vue'
 import ReponsesListView from '../views/ReponsesListView.vue'
 
@@ -70,6 +71,19 @@ const routes = [
     path: '/ajout-sondage',
     name: 'ajout-sondage',
     component: AddSondageView,
+    beforeEnter: (to, from, next) => {
+      if (isAuthenticated()) {
+        next();
+      } else {
+        next('/connexion');
+      }
+    }
+  },
+  {
+    path: '/sondages/:id/modification',
+    name: 'modification-sondage',
+    component: UpdSondageView,
+    props: true,
     beforeEnter: (to, from, next) => {
       if (isAuthenticated()) {
         next();

@@ -4,7 +4,7 @@
       <SondageComponent :sondage="sondage" />
     </div>
     <div v-else class="background_bubble">
-      <p>Le sondage n'a pas été trouvé.</p>
+      <p>Le sondage n'a pas été trouvé</p>
     </div>
   </div>
 </template>

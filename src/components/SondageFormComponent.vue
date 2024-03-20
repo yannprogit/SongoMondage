@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="mode=='add'">
     <form @submit.prevent="addSondage">
       <div>
         <div class="background_bubble">Nom du sondage : <input type="text" v-model="nom" :required="true"/></div>
@@ -32,6 +32,41 @@
       <button type="submit">Créer</button>
     </form>
   </div>
+
+
+  <div v-else>
+    <form @submit.prevent="updSondage">
+      <div>
+        <div class="background_bubble">Nom du sondage : <input type="text" v-model="nom" :required="true"/></div>
+        <div v-for="(question, questionIndex) in questions" :key="questionIndex" class="background_bubble">
+          <div>
+            <h3 class="question-title">Question {{ questionIndex + 1 }}</h3>
+            <button class="delete-button" v-if="questionIndex+1>1" @click.prevent="delQuestion(questionIndex)">-</button>
+          </div>
+          <div>
+            Intitulé : <input type="text" v-model="question.intitule" :required="true"/>
+          </div>
+          <div>
+            Type :
+            <select v-model="question.type" @change="onTypeChange(question)">
+              <option value="ouverte">Ouverte</option>
+              <option value="qcm">QCM</option>
+            </select>
+          </div>
+          <div v-if="question.type == 'qcm'">
+            <div v-for="(reponse, reponseIndex) in question.reponses" :key="reponseIndex">
+              Réponse {{ reponseIndex + 1 }} : <input type="text" v-model="question.reponses[reponseIndex]" :required="true"/>
+              <button class="delete-button" v-if="reponseIndex+1>2" @click.prevent="delReponse(question, reponseIndex)">-</button>
+            </div>
+            <button @click.prevent="addReponse(question)">Ajouter une réponse</button>
+          </div>
+        </div>
+        <button @click.prevent="addQuestion">Ajouter une question</button>
+      </div>
+      <br>
+      <button type="submit">Modifier</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -39,13 +74,31 @@ import axios from 'axios';
 
 export default {
   props: {
-      mode: null
+      mode: null,
+      sondage: {
+        type: Object,
+        required: function() {
+          return this.mode == 'upd';
+        }
+      }
     },
   data() {
     return {
       nom: '',
       questions: [{ intitule: '', type: 'ouverte', reponses: ['',''] }]
     };
+  },
+  created() {
+    if (this.mode=="upd") {
+      this.nom = this.sondage.nom;
+      this.questions.splice(0, 1);
+      this.sondage.questions.forEach(question => {
+        if (question.type === "ouverte") {
+          question.reponses = ['', ''];
+        }
+        this.questions.push(question);
+      });
+    }
   },
   methods: {
     addSondage() {
@@ -72,6 +125,36 @@ export default {
             const router = this.$router;
             alert('Votre sondage a bien été ajouté !');
             router.push('/mes-sondages');
+          })
+          .catch((error) => {
+            console.log('Erreur lors de l\'ajout du sondage :', error);
+          });
+      }
+    },
+    updSondage() {
+      const token = localStorage.getItem('token');
+      if (token) {
+        let questionsWithoutBlankReponses = this.questions.map(question => {
+          if (question.type=="ouverte") {
+            delete question.reponses;
+          }
+          return question;
+        });
+
+        const data = {
+          nom: this.nom,
+          questions: questionsWithoutBlankReponses
+        }
+
+        axios.put(`http://127.0.0.1:8080/sondages/${this.sondage._id}`, data, {
+            headers: {
+              'Authorization': `${token}`,
+            },
+          })
+          .then(() => {
+            const router = this.$router;
+            alert('Votre sondage a bien été modifié !');
+            router.push(`/sondages/${this.sondage._id}`);
           })
           .catch((error) => {
             console.log('Erreur lors de l\'ajout du sondage :', error);
