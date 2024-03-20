@@ -79,6 +79,9 @@ class SondageController:
             return jsonify({"sucess": False, "message": "Ce sondage n'existe pas"}), 404
         elif str(request.util_id)!=str(sondage['createur']):
             return jsonify({"sucess": False, "message": "Ce sondage ne vous appartient pas"}), 403
+        elif SondageService.name_exists(id, data['nom']):
+            print(SondageService.name_exists(id, data['nom']))
+            return jsonify({"sucess": False, "message": "Le nom est déjà pris, veuillez choisir un autre nom"}), 422
         else:
             nouveau_sondage = {
                 '$set': {
