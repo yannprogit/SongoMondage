@@ -71,7 +71,50 @@ class SondageController:
         else:
             return jsonify({"sucess": True, "sondage": SondageController.convertir_sondage_json(sondage)}), 200
         
-    
+    @staticmethod
+    def upd_sondage(id, data):
+        sondage = SondageService.get_sondage(id)
+        
+        if not sondage:
+            return jsonify({"sucess": False, "message": "Ce sondage n'existe pas"}), 404
+        elif str(request.util_id)!=str(sondage['createur']):
+            return jsonify({"sucess": False, "message": "Ce sondage ne vous appartient pas"}), 403
+        else:
+            nouveau_sondage = {
+                '$set': {
+                    'nom': data['nom'],
+                    'createur': ObjectId(str(request.util_id))
+                }
+            }
+
+            if 'questions' in data:
+                nouveau_sondage['$set']['questions'] = []
+
+                for question_data in data['questions']:
+                    question_type = question_data.get('type', 'ouverte')
+
+                    if question_type == 'qcm':
+                        reponses = question_data.get('reponses', [])
+                        if len(reponses) < 2:
+                            return jsonify({"success": False, "message": "Pour les questions de type QCM, veuillez spécifier au moins 2 réponses"}), 422
+
+                        question = {
+                            '_id': ObjectId(question_data['_id']) if '_id' in question_data else ObjectId(),
+                            'intitule': question_data['intitule'],
+                            'type': question_type,
+                            'reponses': reponses
+                        }
+                    else:
+                        question = {
+                            '_id': ObjectId(question_data['_id']) if '_id' in question_data else ObjectId(),
+                            'intitule': question_data['intitule'],
+                            'type': question_type
+                        }
+                    nouveau_sondage['$set']['questions'].append(question)
+
+            resultat = SondageService.upd_sondage(id, nouveau_sondage)
+            return jsonify({"sucess": resultat}), 200
+        
     @staticmethod
     def convertir_sondage_json(sondage):
         sondage_json = {
