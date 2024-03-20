@@ -1,7 +1,7 @@
 <template>
     <div class="reponse">
-      <div class="background_bubble"><h2>Liste des réponses</h2></div>
-      <div v-if="reponses.size!=0">
+      <div v-if="reponses.length!=0">
+        <div class="background_bubble"><h2>Liste des réponses</h2></div><br>
         <ReponsesListComponent :reponses="reponses" />
       </div>
       <div v-else class="background_bubble">

@@ -1,7 +1,12 @@
 <template>
     <div class="sondage">
-      <div class="background_bubble"><h2>Liste des Sondages</h2></div><br>
-      <SondagesListComponent :sondages="sondages" />
+      <div v-if="sondages.length!=0">
+        <div class="background_bubble"><h2>Liste des Sondages</h2></div><br>
+        <SondagesListComponent :sondages="sondages" />
+      </div>
+      <div v-else>
+        <p class="background_bubble">Aucun sondages</p>
+      </div>
     </div>
   </template>
   
