@@ -45,7 +45,7 @@ export default {
             if (error.response && error.response.status == 401) {
               alert(error.response.data.message);
             } else {
-              alert('Une erreur est survenue lors de la connexion.');
+              alert('Une erreur est survenue lors de la connexion');
             }
           });
     }

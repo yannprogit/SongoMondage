@@ -7,6 +7,7 @@ import AddSondageView from '../views/AddSondageView.vue'
 import UpdSondageView from '../views/UpdSondageView.vue'
 import ReponseView from '../views/ReponseView.vue'
 import ReponsesListView from '../views/ReponsesListView.vue'
+import AccueilView from '../views/AccueilView.vue'
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -20,6 +21,18 @@ const isAuthenticated = () => {
 const routes = [
   {
     path: '/',
+    name: 'accueil',
+    component: AccueilView,
+    beforeEnter: (to, from, next) => {
+      if (isAuthenticated()) {
+        next();
+      } else {
+        next('/connexion');
+      }
+    }
+  },
+  {
+    path: '/sondages',
     name: 'sondages',
     component: SondagesListView,
     beforeEnter: (to, from, next) => {
@@ -117,11 +130,6 @@ const routes = [
         next('/connexion');
       }
     }
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/AboutView.vue')
   }
 ]
 

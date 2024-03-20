@@ -1,9 +1,9 @@
 <template>
   <div class="menu_base"></div>
   <nav v-if="isAuthenticated()">
-    <img src="./assets/logo.png" alt="Logo de votre site">
-    <router-link to="/about">Accueil</router-link>
-    <router-link to="/">Sondages</router-link>
+    <img src="./assets/logo.png">
+    <router-link to="/">Accueil</router-link>
+    <router-link to="/sondages">Sondages</router-link>
     <router-link to="/mes-sondages">Mes sondages</router-link>
     <a @click="logout">Déconnexion</a>
   </nav>

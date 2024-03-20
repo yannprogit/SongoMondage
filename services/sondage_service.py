@@ -5,8 +5,8 @@ class SondageService:
     collection = db['sondages']
 
     @staticmethod
-    def get_sondages():
-        return SondageService.collection.find({})
+    def get_sondages(util_id):
+        return SondageService.collection.find({"createur": {"$ne": ObjectId(util_id)}})
     
     @staticmethod
     def get_mes_sondages(util_id):
@@ -40,10 +40,10 @@ class SondageService:
     @staticmethod
     def upd_sondage(id, nouveau_sondage):
         try:
+            db['reponses'].delete_many({'sondage_id': id})
             SondageService.collection.update_one({'_id': ObjectId(id)}, nouveau_sondage)
             return True 
-        except Exception as e:
-            print(f"Erreur lors de l'ajout de l'utilisateur : {e}")
+        except Exception:
             return False 
         
     @staticmethod

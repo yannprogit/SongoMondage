@@ -5,7 +5,7 @@ from bson import ObjectId
 class SondageController:
     @staticmethod
     def get_sondages():
-        sondages = SondageService.get_sondages()
+        sondages = SondageService.get_sondages(request.util_id)
         sondages_json = [SondageController.convertir_sondage_json(sondage) for sondage in sondages]
         return jsonify({"sondages": sondages_json}), 200
     
