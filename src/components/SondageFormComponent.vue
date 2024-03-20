@@ -5,6 +5,10 @@
         <div class="background_bubble">Nom du sondage : <input type="text" v-model="nom" :required="true"/></div>
         <div v-for="(question, questionIndex) in questions" :key="questionIndex" class="background_bubble">
           <div>
+            <h3 class="question-title">Question {{ questionIndex + 1 }}</h3>
+            <button class="delete-button" v-if="questionIndex+1>1" @click.prevent="delQuestion(questionIndex)">-</button>
+          </div>
+          <div>
             Intitulé : <input type="text" v-model="question.intitule" :required="true"/>
           </div>
           <div>
@@ -96,6 +100,11 @@ export default {
 </script>
 
 <style scoped>
+.question-title {
+  display: inline;
+  margin-right: 10px; 
+}
+
 .delete-button {
   background-color: #8f2020;
     color: white;

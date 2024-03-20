@@ -39,6 +39,7 @@ export default {
             const token = response.data.token;
             localStorage.setItem('token', token);
             this.$router.push('/');
+            window.location.reload();
           })
           .catch(error => {
             if (error.response && error.response.status == 401) {

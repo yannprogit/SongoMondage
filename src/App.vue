@@ -1,6 +1,6 @@
 <template>
   <div class="menu_base"></div>
-  <nav>
+  <nav v-if="isAuthenticated()">
     <img src="./assets/logo.png" alt="Logo de votre site">
     <router-link to="/about">Accueil</router-link>
     <router-link to="/">Sondages</router-link>
@@ -16,7 +16,16 @@ export default {
     logout() {
       localStorage.removeItem('token');
       this.$router.push('/connexion');
+      window.location.reload();
     },
+    isAuthenticated() {
+      const token = localStorage.getItem('token');
+      let ok = false;
+      if (token) {
+        ok = true;
+      }
+      return ok;
+    }
   },
 };
 </script>

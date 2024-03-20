@@ -2,7 +2,7 @@
     <div>
       <div class="background_bubble"><h3>{{ sondage.nom }}</h3></div>
       <div v-if="isCreateur()" class="sondage_menu">
-        <router-link :to="{ name: 'reponses', params: { id: sondage._id } }">Voir les réponses</router-link>
+        <router-link :to="{ name: 'reponses', params: { id: sondage._id } }">Réponses</router-link>
         <router-link :to="{ name: 'reponses', params: { id: sondage._id } }">Modifier</router-link>
         <a @click="delSondage">Supprimer</a>
       </div>

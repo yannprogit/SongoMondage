@@ -8,7 +8,12 @@ import ReponseView from '../views/ReponseView.vue'
 import ReponsesListView from '../views/ReponsesListView.vue'
 
 const isAuthenticated = () => {
-  return !!localStorage.getItem('token');
+  const token = localStorage.getItem('token');
+  let ok = false;
+  if (token) {
+    ok = true;
+  }
+  return ok;
 };
 
 const routes = [
