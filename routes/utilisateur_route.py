@@ -12,3 +12,8 @@ def post_util_route():
 @ConnexionController.auth_middleware
 def get_util_route(id):
     return UtilController.get_util(id) 
+
+@util_blueprint.route("/utilisateurs/names", methods=['GET'], endpoint='get_utils_names')
+@ConnexionController.auth_middleware
+def get_utils_names_route():
+    return UtilController.get_utils_names() 

@@ -19,20 +19,16 @@ class UtilController:
             return jsonify({"sucess": False, "message": "Ce mail est déjà utilisé, veuillez en utiliser un autre"}), 422
         
     @staticmethod
-    def get_util(id):
-        utilisateur = UtilService.get_util(id)
-        if not utilisateur:
-            return jsonify({"sucess": False, "message": "Cette utilisateur n'existe pas"}), 404
-        else:
-            return jsonify({"sucess": True, "Util": UtilController.convertir_util_json(utilisateur)}), 200
-        
+    def get_utils_names():
+        utilisateurs = UtilService.get_utils()
+        utilisateurs_json = [UtilController.convertir_util_json(utilisateur) for utilisateur in utilisateurs]
+        return jsonify({"success": True, "utils": utilisateurs_json}), 200
+
     @staticmethod
     def convertir_util_json(utilisateur):
         utilisateur_json = {
             "_id": str(utilisateur['_id']),
-            "nom": utilisateur["nom"],
-            "mail": utilisateur["mail"],
-            "mdp": utilisateur["mdp"]
+            "nom": utilisateur['nom']
         }
         return utilisateur_json
     

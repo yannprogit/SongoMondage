@@ -55,11 +55,6 @@ class ConnexionController:
         else:
             return jsonify({"success": False, "message": "Le mail ou le mot de passe est incorrecte"}), 401
         
-    @staticmethod
-    def deconnexion():
-        token = request.headers.get('Authorization')
-        ConnexionController.token_blacklist.append(token)
-        return jsonify({"success": True, "message": "Vous avez été déconnecté"}), 200
     
     @staticmethod
     def generate_token(util):

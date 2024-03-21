@@ -8,6 +8,7 @@ import UpdSondageView from '../views/UpdSondageView.vue'
 import ReponseView from '../views/ReponseView.vue'
 import ReponsesListView from '../views/ReponsesListView.vue'
 import AccueilView from '../views/AccueilView.vue'
+import InscriptionView from '../views/InscriptionView.vue'
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -59,6 +60,18 @@ const routes = [
     path: '/connexion',
     name: 'connexion',
     component: ConnexionView,
+    beforeEnter: (to, from, next) => {
+      if (isAuthenticated()) {
+        next('/');
+      } else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/inscription',
+    name: 'inscription',
+    component: InscriptionView,
     beforeEnter: (to, from, next) => {
       if (isAuthenticated()) {
         next('/');

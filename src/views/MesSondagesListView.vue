@@ -1,6 +1,10 @@
 <template>
     <div class="sondage">
-      <div class="background_bubble"><h2>Mes Sondages</h2></div>
+      <div v-if="sondages.length!=0" class="background_bubble"><h2>Mes Sondages</h2></div>
+      <div v-else class="background_bubble">
+        <p>Vous n'avez aucun sondage, cliquez sur</p>
+        <p>ajouter pour en créer un !</p>
+      </div>
       <router-link to="/ajout-sondage">
         <button>Ajouter</button>
       </router-link>

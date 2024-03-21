@@ -40,8 +40,9 @@ class SondageService:
     @staticmethod
     def upd_sondage(id, nouveau_sondage):
         try:
-            db['reponses'].delete_many({'sondage_id': id})
-            SondageService.collection.update_one({'_id': ObjectId(id)}, nouveau_sondage)
+            sondage_id = ObjectId(id)
+            db['reponses'].delete_many({'sondage_id':sondage_id})
+            SondageService.collection.update_one({'_id': sondage_id}, nouveau_sondage)
             return True 
         except Exception:
             return False 

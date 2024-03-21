@@ -18,8 +18,8 @@ class UtilService:
         return UtilService.collection.find_one({"mail": mail})
     
     @staticmethod
-    def get_util(id):
+    def get_utils():
         try:
-            return UtilService.collection.find_one({'_id': ObjectId(id)})
+            return UtilService.collection.find({}, {"_id": 1, "nom": 1})
         except Exception:
             return None

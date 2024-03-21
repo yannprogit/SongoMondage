@@ -1,12 +1,14 @@
 <template>
-  <div class="menu_base"></div>
-  <nav v-if="isAuthenticated()">
-    <img src="./assets/logo.png">
-    <router-link to="/">Accueil</router-link>
-    <router-link to="/sondages">Sondages</router-link>
-    <router-link to="/mes-sondages">Mes sondages</router-link>
-    <a @click="logout">Déconnexion</a>
-  </nav>
+  <div v-if="isAuthenticated()">
+    <div class="menu_base"></div>
+    <nav>
+      <img src="./assets/logo.png">
+      <router-link to="/">Accueil</router-link>
+      <router-link to="/sondages">Sondages</router-link>
+      <router-link to="/mes-sondages">Mes sondages</router-link>
+      <a @click="logout">Déconnexion</a>
+    </nav>
+  </div>
   <router-view/>
 </template>
 
@@ -55,6 +57,18 @@ export default {
     display: block;
     border: 2px solid #165c3d;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #2c3e50;
+  transition: color 0.3s ease; 
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #edd504
 }
 
 button {
