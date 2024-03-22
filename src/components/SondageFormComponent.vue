@@ -66,8 +66,8 @@
       <br>
       <button type="submit">Modifier</button>
     </form>
-    <notification :message="notificationMessage" :urlPage="urlPageNotification" v-if="showNotification" @notificationClosed="showNotification = false"/>
   </div>
+  <notification :message="notificationMessage" :urlPage="urlPageNotification" v-if="showNotification" @notificationClosed="showNotification = false"/>
 </template>
 
 <script>
@@ -137,7 +137,6 @@ export default {
             },
           })
           .then(() => {
-            //alert("fre");
             this.showNotification = true;
             this.notificationMessage = 'Sondage a bien été ajouté !';
             this.urlPageNotification = '/mes-sondages';
