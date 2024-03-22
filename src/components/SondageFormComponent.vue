@@ -8,21 +8,35 @@
             <h3 class="question-title">Question {{ questionIndex + 1 }}</h3>
             <button class="delete-button" v-if="questionIndex+1>1" @click.prevent="delQuestion(questionIndex)">-</button>
           </div>
-          <div>
-            Intitulé : <input type="text" v-model="question.intitule" :required="true"/>
-          </div>
-          <div>
-            Type :
-            <select v-model="question.type" @change="onTypeChange(question)">
-              <option value="ouverte">Ouverte</option>
-              <option value="qcm">QCM</option>
-            </select>
-          </div>
+          <table align="center" cellspacing="10">
+            <tbody>
+              <tr>
+                <td align="left">Intitulé : </td>
+                <td align="left"><input type="text" v-model="question.intitule" :required="true"/></td>
+              </tr>
+              <tr>
+                <td align="left">Type :</td>
+                <td align="left">
+                  <select v-model="question.type" @change="onTypeChange(question)">
+                    <option value="ouverte">Ouverte</option>
+                    <option value="qcm">QCM</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
           <div v-if="question.type == 'qcm'">
-            <div v-for="(reponse, reponseIndex) in question.reponses" :key="reponseIndex">
-              Réponse {{ reponseIndex + 1 }} : <input type="text" v-model="question.reponses[reponseIndex]" :required="true"/>
-              <button class="delete-button" v-if="reponseIndex+1>2" @click.prevent="delReponse(question, reponseIndex)">-</button>
-            </div>
+            <table align="center">
+              <tbody>
+                <tr v-for="(reponse, reponseIndex) in question.reponses" :key="reponseIndex">
+                  <td align="left">Réponse {{ reponseIndex + 1 }} :</td>
+                  <td align="left">
+                    <input type="text" v-model="question.reponses[reponseIndex]" :required="true"/>
+                    <button class="delete-button" v-if="reponseIndex+1>2" @click.prevent="delReponse(question, reponseIndex)">-</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
             <button @click.prevent="addReponse(question)">Ajouter une réponse</button>
           </div>
         </div>
@@ -43,21 +57,35 @@
             <h3 class="question-title">Question {{ questionIndex + 1 }}</h3>
             <button class="delete-button" v-if="questionIndex+1>1" @click.prevent="delQuestion(questionIndex)">-</button>
           </div>
-          <div>
-            Intitulé : <input type="text" v-model="question.intitule" :required="true"/>
-          </div>
-          <div>
-            Type :
-            <select v-model="question.type" @change="onTypeChange(question)">
-              <option value="ouverte">Ouverte</option>
-              <option value="qcm">QCM</option>
-            </select>
-          </div>
+          <table align="center" cellspacing="10">
+            <tbody>
+              <tr>
+                <td align="left">Intitulé : </td>
+                <td align="left"><input type="text" v-model="question.intitule" :required="true"/></td>
+              </tr>
+              <tr>
+                <td align="left">Type :</td>
+                <td align="left">
+                  <select v-model="question.type" @change="onTypeChange(question)">
+                    <option value="ouverte">Ouverte</option>
+                    <option value="qcm">QCM</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
           <div v-if="question.type == 'qcm'">
-            <div v-for="(reponse, reponseIndex) in question.reponses" :key="reponseIndex">
-              Réponse {{ reponseIndex + 1 }} : <input type="text" v-model="question.reponses[reponseIndex]" :required="true"/>
-              <button class="delete-button" v-if="reponseIndex+1>2" @click.prevent="delReponse(question, reponseIndex)">-</button>
-            </div>
+            <table align="center">
+              <tbody>
+                <tr v-for="(reponse, reponseIndex) in question.reponses" :key="reponseIndex">
+                  <td align="left">Réponse {{ reponseIndex + 1 }} :</td>
+                  <td align="left">
+                    <input type="text" v-model="question.reponses[reponseIndex]" :required="true"/>
+                    <button class="delete-button" v-if="reponseIndex+1>2" @click.prevent="delReponse(question, reponseIndex)">-</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
             <button @click.prevent="addReponse(question)">Ajouter une réponse</button>
           </div>
         </div>
@@ -216,7 +244,7 @@ export default {
 }
 
 .delete-button {
-  background-color: #8f2020;
+  background-color: #b62a2a;
     color: white;
     border: 2px solid transparent;
     border-radius: 5px;
@@ -230,7 +258,7 @@ export default {
 
 .delete-button:hover {
   background-color: transparent;
-    border-color: #8f2020; 
-    color: #8f2020; 
+    border-color: #b62a2a; 
+    color: #b62a2a; 
 }
 </style>
