@@ -7,11 +7,13 @@
         <h3 v-else>Inconnu</h3>
       </router-link>
     </div>
+    <notification :message="notificationMessage" :urlPage="urlPageNotification" v-if="showNotification" @notificationClosed="showNotification = false"/>
 </template>
 
 <script>
 import axios from 'axios';
-import VueJwtDecode from 'vue-jwt-decode'
+import VueJwtDecode from 'vue-jwt-decode';
+import Notification from './NotificationComponent.vue';
 
 export default {
   props: {
@@ -20,9 +22,15 @@ export default {
           required: true
       }
   },
+  components: {
+      Notification
+    },
     data() {
       return {
-        utils: []
+        utils: [],
+        showNotification: false,
+        notificationMessage: '',
+        urlPageNotification: null
       };
     },
     mounted() {
@@ -38,8 +46,9 @@ export default {
             this.utils = response.data.utils;
             })
             .catch(() => {
-            alert("Une erreur s'est produite");
-            this.$router.push('/');
+              this.showNotification = true;
+              this.notificationMessage = "Une erreur s'est produite";
+              this.urlPageNotification = '/';
             });
         } else {
           this.$router.push('/connexion');

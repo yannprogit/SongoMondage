@@ -39,8 +39,8 @@ export default {
       .then(response => {
         this.sondage = response.data.sondage;
       })
-      .catch(error => {
-        console.error('Erreur lors de la récupération du sondage:', error);
+      .catch(() => {
+        this.sondage = null;
       });
     }
   }

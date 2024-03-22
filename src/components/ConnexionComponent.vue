@@ -19,16 +19,24 @@
     </form>
     <p>Vous n'avez pas de compte ? <router-link to="/inscription">inscription ici</router-link></p>
   </div>
+  <notification :message="notificationMessage" :urlPage="urlPageNotification" v-if="showNotification" @notificationClosed="showNotification = false"/>
 </template>
 
 <script>
 import axios from 'axios';
+import Notification from './NotificationComponent.vue';
 
 export default {
+  components: {
+    Notification
+  },
   data() {
     return {
       mail: '',
-      mdp: ''
+      mdp: '',
+      showNotification: false,
+      notificationMessage: '',
+      urlPageNotification: null
     };
   },
   methods: {
@@ -51,9 +59,11 @@ export default {
           })
           .catch(error => {
             if (error.response && error.response.status == 401) {
-              alert(error.response.data.message);
+              this.showNotification = true;
+              this.notificationMessage = error.response.data.message;
             } else {
-              alert('Une erreur est survenue lors de la connexion');
+              this.showNotification = true;
+              this.notificationMessage = 'Une erreur est survenue lors de la connexion';
             }
           });
     }

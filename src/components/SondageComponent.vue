@@ -25,12 +25,14 @@
         </div>
         <button type="submit">Envoyer</button>
       </form>
+      <notification :message="notificationMessage" :urlPage="urlPageNotification" v-if="showNotification" @notificationClosed="showNotification = false"/>
     </div>
   </template>
   
   <script>
   import axios from 'axios';
-  import VueJwtDecode from 'vue-jwt-decode'
+  import VueJwtDecode from 'vue-jwt-decode';
+  import Notification from './NotificationComponent.vue';
 
   export default {
     props: {
@@ -39,6 +41,16 @@
         required: true
       }
     },
+    components: {
+    Notification
+  },
+  data() {
+    return {
+      showNotification: false,
+      notificationMessage: '',
+      urlPageNotification: null
+    };
+  },
     methods: {
       delSondage() {
         const token = localStorage.getItem('token');
@@ -49,12 +61,13 @@
             },
           })
           .then(() => {
-            alert('Sondage supprimé !');
-            this.$router.push('/mes-sondages');
+            this.showNotification = true;
+            this.notificationMessage = 'Sondage supprimé !';
+            this.urlPageNotification = '/mes-sondages';
           })
-          .catch((error) => {
-            alert('Une erreur est survenue lors de la suppression');
-            console.log('Erreur lors de la suppression :', error);
+          .catch(() => {
+            this.showNotification = true;
+            this.notificationMessage = 'Une erreur est survenue lors de la suppression';
           });
         } else {
           this.$router.push('/connexion');
@@ -76,7 +89,8 @@
             let question = qcmQuestions[i];
             let checkedInputs = document.querySelectorAll(`input[type="checkbox"][name="${question._id}"]:checked`);
             if (checkedInputs.length == 0) {
-                alert(`Vous devez cocher au moins une réponse pour la question "${question.intitule}"`);
+                this.showNotification = true;
+                this.notificationMessage = `Vous devez cocher au moins une réponse pour la question "${question.intitule}"`;
                 return;
             }
         }
@@ -108,11 +122,18 @@
             },
           })
           .then(() => {
-            alert('Réponses envoyées avec succès');
-            this.$router.push('/');
+            this.showNotification = true;
+            this.notificationMessage = 'Réponses envoyées avec succès';
+            this.urlPageNotification = '/sondages';
           })
-          .catch((error) => {
-            console.log('Erreur lors de l\'envoi des réponses:', error);
+          .catch(error => {
+            if (error.response && error.response.status == 400) {
+              this.showNotification = true;
+              this.notificationMessage = error.response.data.message;
+            } else {
+              this.showNotification = true;
+              this.notificationMessage = "Une erreur s'est produite lors de l'envoie de la réponse";
+            }
           });
         } else {
           this.$router.push('/connexion');

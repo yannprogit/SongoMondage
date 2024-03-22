@@ -42,8 +42,8 @@
             .then(response => {
             this.reponses = response.data.reponses;
             })
-            .catch(error => {
-            console.error('Erreur lors de la récupération des reponses:', error);
+            .catch(() => {
+            this.reponses = [];
             });
         }
     }

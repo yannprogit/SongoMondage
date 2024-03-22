@@ -36,8 +36,8 @@
             .then(response => {
             this.sondages = response.data.sondages;
             })
-            .catch(error => {
-            console.error('Erreur lors de la récupération des sondages:', error);
+            .catch(() => {
+            this.sondages = [];
             });
         }
     }

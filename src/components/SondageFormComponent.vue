@@ -66,11 +66,14 @@
       <br>
       <button type="submit">Modifier</button>
     </form>
+    <notification :message="notificationMessage" :urlPage="urlPageNotification" v-if="showNotification" @notificationClosed="showNotification = false"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import VueJwtDecode from 'vue-jwt-decode';
+import Notification from './NotificationComponent.vue';
 
 export default {
   props: {
@@ -82,22 +85,34 @@ export default {
         }
       }
     },
+  components: {
+    Notification
+  },
   data() {
     return {
       nom: '',
-      questions: [{ intitule: '', type: 'ouverte', reponses: ['',''] }]
+      questions: [{ intitule: '', type: 'ouverte', reponses: ['',''] }],
+      showNotification: false,
+      notificationMessage: '',
+      urlPageNotification: null
     };
   },
   created() {
     if (this.mode=="upd") {
-      this.nom = this.sondage.nom;
-      this.questions.splice(0, 1);
-      this.sondage.questions.forEach(question => {
-        if (question.type === "ouverte") {
-          question.reponses = ['', ''];
-        }
+      const token = localStorage.getItem('token');
+      const decodedToken = VueJwtDecode.decode(token);
+      if (this.sondage.createur == decodedToken.id) {
+        this.nom = this.sondage.nom;
+        this.questions.splice(0, 1);
+        this.sondage.questions.forEach(question => {
+          if (question.type == "ouverte") {
+            question.reponses = ['', ''];
+          }
         this.questions.push(question);
-      });
+        });
+      } else {
+        this.$router.push(`/sondages/${this.sondage._id}`);
+      }
     }
   },
   methods: {
@@ -122,12 +137,19 @@ export default {
             },
           })
           .then(() => {
-            const router = this.$router;
-            alert('Votre sondage a bien été ajouté !');
-            router.push('/mes-sondages');
+            //alert("fre");
+            this.showNotification = true;
+            this.notificationMessage = 'Sondage a bien été ajouté !';
+            this.urlPageNotification = '/mes-sondages';
           })
-          .catch((error) => {
-            console.log('Erreur lors de l\'ajout du sondage :', error);
+          .catch(error => {
+            if (error.response && error.response.status == 422) {
+              this.showNotification = true;
+              this.notificationMessage = error.response.data.message;
+            } else {
+              this.showNotification = true;
+              this.notificationMessage = "Une erreur s'est produite lors de l'ajout du sondage";
+            }
           });
       }
     },
@@ -152,12 +174,18 @@ export default {
             },
           })
           .then(() => {
-            const router = this.$router;
-            alert('Votre sondage a bien été modifié !');
-            router.push(`/sondages/${this.sondage._id}`);
+            this.showNotification = true;
+            this.notificationMessage = 'Votre sondage a bien été modifié !';
+            this.urlPageNotification = `/sondages/${this.sondage._id}`;
           })
           .catch((error) => {
-            console.log('Erreur lors de l\'ajout du sondage :', error);
+            if (error.response && error.response.status == 422) {
+              this.showNotification = true;
+              this.notificationMessage = error.response.data.message;
+            } else {
+              this.showNotification = true;
+              this.notificationMessage = "Une erreur s'est produite lors de la mise à jour du sondage";
+            }
           });
       }
     },

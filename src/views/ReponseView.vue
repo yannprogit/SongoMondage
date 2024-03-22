@@ -44,8 +44,8 @@
         .then(response => {
             this.sondage = response.data.sondage;
         })
-        .catch(error => {
-            console.error('Erreur lors de la récupération du sondage:', error);
+        .catch(() => {
+            this.sondage = null;
         });
         
         axios.get(`http://127.0.0.1:8080/sondages/${this.sondage_id}/reponses/${this.id}`, {
@@ -56,8 +56,8 @@
         .then(response => {
           this.reponse = response.data.reponse;
         })
-        .catch(error => {
-          console.error('Erreur lors de la récupération de la réponse:', error);
+        .catch(() => {
+          this.reponse = null;
         });
       }
     }

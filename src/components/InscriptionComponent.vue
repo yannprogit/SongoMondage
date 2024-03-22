@@ -23,17 +23,25 @@
       </form>
       <p>Vous avez déjà un compte ? <router-link to="/connexion">connexion ici</router-link></p>
     </div>
+    <notification :message="notificationMessage" :urlPage="urlPageNotification" v-if="showNotification" @notificationClosed="showNotification = false"/>
   </template>
   
   <script>
   import axios from 'axios';
+  import Notification from './NotificationComponent.vue';
   
   export default {
+    components: {
+      Notification
+    },
     data() {
       return {
         nom: '',
         mail: '',
-        mdp: ''
+        mdp: '',
+        showNotification: false,
+        notificationMessage: '',
+        urlPageNotification: null
       };
     },
     methods: {
@@ -50,14 +58,17 @@
               },
             })
             .then(() => {
-              alert('Votre compte a été crée avec succès !');
-              this.$router.push('/connexion');
+              this.showNotification = true;
+              this.notificationMessage = 'Votre compte a été crée avec succès !';
+              this.urlPageNotification = '/connexion';
             })
             .catch(error => {
               if (error.response && error.response.status == 422) {
-                alert(error.response.data.message);
+                this.showNotification = true;
+                this.notificationMessage = error.response.data.message;
               } else {
-                alert('Une erreur est survenue lors de l\'inscription');
+                this.showNotification = true;
+                this.notificationMessage = "Une erreur est survenue lors de l'inscription";
               }
             });
       }

@@ -8,11 +8,13 @@
         <p>Nombre de questions: {{ sondage.questions.length }}</p>
         </router-link>
       </div>
+      <notification :message="notificationMessage" :urlPage="urlPageNotification" v-if="showNotification" @notificationClosed="showNotification = false"/>
 </template>
   
   <script>
   import axios from 'axios';
-  import VueJwtDecode from 'vue-jwt-decode'
+  import VueJwtDecode from 'vue-jwt-decode';
+  import Notification from './NotificationComponent.vue';
 
   export default {
     props: {
@@ -21,9 +23,15 @@
             required: true
         }
     },
+    components: {
+      Notification
+    },
     data() {
       return {
-        utils: []
+        utils: [],
+        showNotification: false,
+        notificationMessage: '',
+        urlPageNotification: null
       };
     },
     mounted() {
@@ -39,8 +47,9 @@
             this.utils = response.data.utils;
             })
             .catch(() => {
-            alert("Une erreur s'est produite");
-            this.$router.push('/');
+              this.showNotification = true;
+              this.notificationMessage = "Une erreur s'est produite";
+              this.urlPageNotification = '/';
             });
         } else {
           this.$router.push('/connexion');
