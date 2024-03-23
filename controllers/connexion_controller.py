@@ -40,20 +40,22 @@ class ConnexionController:
     
     @staticmethod
     def connexion(data):
+        if 'mail' in data and 'mdp' in data:
+            mail = data["mail"]
+            mdp = data["mdp"]
 
-        mail = data["mail"]
-        mdp = data["mdp"]
+            util = ConnexionController.collection.find_one({'mail': mail}) 
 
-        util = ConnexionController.collection.find_one({'mail': mail}) 
-
-        if util:
-            if bcrypt.check_password_hash(util['mdp'], mdp):
-                token = ConnexionController.generate_token(util)
-                return jsonify({"success": True, "token": token}), 200
+            if util:
+                if bcrypt.check_password_hash(util['mdp'], mdp):
+                    token = ConnexionController.generate_token(util)
+                    return jsonify({"success": True, "token": token}), 200
+                else:
+                    return jsonify({"success": False, "message": "Le mail ou le mot de passe est incorrecte"}), 401
             else:
                 return jsonify({"success": False, "message": "Le mail ou le mot de passe est incorrecte"}), 401
         else:
-            return jsonify({"success": False, "message": "Le mail ou le mot de passe est incorrecte"}), 401
+            return jsonify({"success": False, "message": "Le mail ou le mot de passe n'a pas été fourni"}), 400
         
     
     @staticmethod
