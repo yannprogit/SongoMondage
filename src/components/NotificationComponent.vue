@@ -44,10 +44,12 @@
   }
   
   .notification {
-    background-color: gold;
-    color: #333;
+    background-image: linear-gradient(to bottom, #edd504, orange);
+    border: 2px solid #866508;
+    color: #2c3e50;
+    font-weight: bold;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 15px;
   }
   
   .message {
