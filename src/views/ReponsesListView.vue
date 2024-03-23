@@ -1,11 +1,15 @@
 <template>
     <div class="reponse">
       <div v-if="reponses.length!=0">
+        <router-link :to="{ name: 'sondage', params: { id: id }}"><button class="return-button">← Retour</button></router-link>
         <div class="background_bubble"><h2>Liste des réponses</h2></div><br>
         <ReponsesListComponent :reponses="reponses" />
       </div>
-      <div v-else class="background_bubble">
-        <p>Aucune réponses</p>
+      <div v-else>
+        <router-link :to="{ name: 'sondage', params: { id: id }}"><button class="return-button">← Retour</button></router-link>
+        <div class="background_bubble">
+          <p>Aucune réponses</p>
+        </div>
       </div>
     </div>
   </template>

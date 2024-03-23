@@ -1,5 +1,8 @@
 <template>
     <div>
+      <router-link v-if="isCreateur()" :to="{ name: 'mes-sondages'}"><button class="return-button">← Retour</button></router-link>
+      <router-link v-else :to="{ name: 'sondages'}"><button class="return-button">← Retour</button></router-link>
+
       <div class="background_bubble"><h3>{{ sondage.nom }}</h3></div>
       <div v-if="isCreateur()" class="sondage_menu">
         <router-link :to="{ name: 'reponses', params: { id: sondage._id } }">Réponses</router-link>

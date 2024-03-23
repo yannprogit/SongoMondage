@@ -4,6 +4,7 @@
       <SondageComponent :sondage="sondage" />
     </div>
     <div v-else class="background_bubble">
+      <router-link :to="{ name: 'sondages'}"><button class="return-button">← Retour</button></router-link>
       <p>Le sondage n'a pas été trouvé</p>
     </div>
   </div>

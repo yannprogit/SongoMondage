@@ -1,5 +1,6 @@
 <template>
     <div>
+      <router-link :to="{ name: 'reponses', params: { id: sondage._id }}"><button class="return-button">← Retour</button></router-link>
       <div class="background_bubble"><h3>{{ sondage.nom }}</h3></div>
         <div v-for="(question, questionIndex) in sondage.questions" :key="questionIndex" class="background_bubble">
           <p>{{ question.intitule }}</p>

@@ -3,8 +3,11 @@
       <div v-if="sondage && reponse">
         <ReponseComponent :sondage="sondage" :reponse="reponse"/>
       </div>
-      <div v-else class="background_bubble">
-        <p>La réponse n'a pas été trouvé.</p>
+      <div v-else>
+        <router-link :to="{ name: 'reponses', params: { id: sondage_id }}"><button class="return-button">← Retour</button></router-link>
+        <div class="background_bubble">
+          <p>La réponse n'a pas été trouvé.</p>
+        </div>
       </div>
     </div>
   </template>

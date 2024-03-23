@@ -197,6 +197,10 @@ nav a.router-link-exact-active {
   text-decoration: underline;
 }
 
+.return-button {
+  margin-right: 310px;
+}
+
 body {
   background-color: #05A69C;
   background-image: url('./assets/background.png');

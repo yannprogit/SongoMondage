@@ -1,10 +1,12 @@
 <template>
     <div class="sondageForm">
       <div v-if="sondage">
+        <router-link :to="{ name: 'sondage', params: { id: id }}"><button class="return-button">← Retour</button></router-link>
         <div class="background_bubble"><h2>Modification d'un sondage</h2></div>
         <SondageFormComponent :mode="'upd'" :sondage="sondage" />
       </div>
       <div v-else class="background_bubble">
+        <router-link :to="{ name: 'mes-sondages' }"><button class="return-button">← Retour</button></router-link>
         <p>Le sondage n'a pas été trouvé</p>
       </div>
     </div>
