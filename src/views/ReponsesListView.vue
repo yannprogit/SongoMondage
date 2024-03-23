@@ -2,7 +2,10 @@
     <div class="reponse">
       <div v-if="reponses.length!=0">
         <router-link :to="{ name: 'sondage', params: { id: id }}"><button class="return-button">← Retour</button></router-link>
-        <div class="background_bubble"><h2>Liste des réponses</h2></div><br>
+        <div class="background_bubble">
+          <h2>Liste des réponses</h2>
+          <p>Nombre de réponses : {{ reponses.length }}</p>
+        </div><br>
         <ReponsesListComponent :reponses="reponses" />
       </div>
       <div v-else>

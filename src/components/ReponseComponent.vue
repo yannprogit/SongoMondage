@@ -30,8 +30,8 @@
       },
       reponse: {
         type: Object,
-        required: false
-      },
+        required: true
+      }
     }
   };
   </script>
