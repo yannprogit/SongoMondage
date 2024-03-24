@@ -9,7 +9,7 @@
         <router-link :to="{ name: 'modification-sondage', params: { id: sondage._id } }">Modifier</router-link>
         <a @click="delSondage">Supprimer</a>
       </div>
-      <form @submit.prevent="submitForm">
+      <form @submit.prevent="submitReponse">
         <div v-for="question in sondage.questions" :key="question._id" class="background_bubble">
           <p>{{ question.intitule }}</p>
           <div v-if="question.type == 'qcm'">
@@ -85,7 +85,7 @@
           this.$router.push('/connexion');
         }
       },
-      submitForm() {
+      submitReponse() {
         let qcmQuestions = this.sondage.questions.filter(question => question.type == 'qcm');
 
         for (let i = 0; i < qcmQuestions.length; i++) {
