@@ -90,6 +90,28 @@ button:hover {
     color: #207D8F; 
 }
 
+select {
+  background-color: #43c088; 
+  border: none; 
+  border-radius: 5px; 
+  padding: 5px; 
+  border: 2px solid transparent;
+  appearance: none; 
+  width: 150px; 
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" /></svg>'); 
+  background-repeat: no-repeat;
+  background-position: right 8px center; 
+}
+
+option {
+  background-color: #43c088;
+}
+
+select:focus {
+  outline: none; 
+  border: 2px solid #E6DD2B;
+}
+
 input[type="text"], input[type="password"] {
     background-color: #43c088;
     border: none;
