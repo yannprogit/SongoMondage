@@ -40,7 +40,7 @@ class ConnexionController:
     
     @staticmethod
     def connexion(data):
-        if 'mail' in data and 'mdp' in data:
+        if 'mail' in data and data['mail'] is not None and 'mdp' in data and data['mdp'] is not None and data['mail'].strip()!='' and data['mdp'].strip()!='':
             mail = data["mail"]
             mdp = data["mdp"]
 

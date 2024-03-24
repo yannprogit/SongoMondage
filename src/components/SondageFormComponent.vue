@@ -170,7 +170,7 @@ export default {
             this.urlPageNotification = '/mes-sondages';
           })
           .catch(error => {
-            if (error.response && error.response.status == 422) {
+            if (error.response && (error.response.status == 422 || error.response.status == 400)) {
               this.showNotification = true;
               this.notificationMessage = error.response.data.message;
             } else {
@@ -206,7 +206,7 @@ export default {
             this.urlPageNotification = `/sondages/${this.sondage._id}`;
           })
           .catch((error) => {
-            if (error.response && error.response.status == 422) {
+            if (error.response && (error.response.status == 422 || error.response.status == 400)) {
               this.showNotification = true;
               this.notificationMessage = error.response.data.message;
             } else {

@@ -17,7 +17,7 @@ class SondageController:
 
     @staticmethod
     def add_sondage(data):
-        if 'nom' in data and data['nom'] is not None and 'questions' in data and isinstance(data['questions'], list) and len(data['questions']) > 0:
+        if 'nom' in data and data['nom'] is not None and data['nom'].strip()!='' and 'questions' in data and isinstance(data['questions'], list) and len(data['questions']) > 0:
             if not SondageService.name_exists(None, data['nom']):
                 sondage = {
                     'nom': data['nom'],
@@ -26,13 +26,15 @@ class SondageController:
                 }
 
                 for question_data in data['questions']:
-                    if not 'intitule' in question_data or question_data['intitule'] is not None:
-                        return jsonify({"success": False, "message": "Votre question doit avoir un intitulé"}), 400
+                    if not 'intitule' in question_data or question_data['intitule'] is None or question_data['intitule'].strip()=='':
+                        return jsonify({"success": False, "message": "Vos questions doivent avoir un intitulé"}), 400
                     
                     question_type = question_data.get('type', 'ouverte')
 
                     if question_type == 'qcm':
                         reponses = question_data.get('reponses', [])
+                        reponses = list(filter(lambda rep: rep.strip() != '', map(str.strip, reponses)))
+
                         if len(reponses) < 2:
                             return jsonify({"success": False, "message": "Pour les questions de type QCM, veuillez spécifier au moins 2 réponses"}), 422
 
@@ -86,10 +88,9 @@ class SondageController:
         elif str(request.util_id)!=str(sondage['createur']):
             return jsonify({"sucess": False, "message": "Ce sondage ne vous appartient pas"}), 403
         elif SondageService.name_exists(id, data['nom']):
-            print(SondageService.name_exists(id, data['nom']))
             return jsonify({"sucess": False, "message": "Le nom est déjà pris, veuillez choisir un autre nom"}), 422
         else:
-            if 'nom' in data and data['nom'] is not None and 'questions' in data and isinstance(data['questions'], list) and len(data['questions']) > 0:
+            if 'nom' in data and data['nom'] is not None and 'questions' in data and data['nom'].strip()!='' and isinstance(data['questions'], list) and len(data['questions']) > 0:
                 nouveau_sondage = {
                     '$set': {
                         'nom': data['nom'],
@@ -97,16 +98,17 @@ class SondageController:
                     }
                 }
 
-                nouveau_sondage['$set']['questions'] = []
+                nouveau_sondage['$set']['questions'] = [] 
 
                 for question_data in data['questions']:
-                    if not 'intitule' in question_data or question_data['intitule'] is not None:
-                        return jsonify({"success": False, "message": "Votre question doit avoir un intitulé"}), 400
+                    if not 'intitule' in question_data or question_data['intitule'] is None or question_data['intitule'].strip()=='':
+                        return jsonify({"success": False, "message": "Vos questions doivent avoir un intitulé"}), 400
                     
                     question_type = question_data.get('type', 'ouverte')
 
                     if question_type == 'qcm':
                         reponses = question_data.get('reponses', [])
+                        reponses = list(filter(lambda rep: rep.strip() != '', map(str.strip, reponses)))
                         if len(reponses) < 2:
                             return jsonify({"success": False, "message": "Pour les questions de type QCM, veuillez spécifier au moins 2 réponses"}), 422
 

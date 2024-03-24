@@ -18,6 +18,10 @@ class UtilService:
         return UtilService.collection.find_one({"mail": mail})
     
     @staticmethod
+    def nom_exists(nom):
+        return UtilService.collection.find_one({"nom": nom})
+    
+    @staticmethod
     def get_utils():
         try:
             return UtilService.collection.find({}, {"_id": 1, "nom": 1})

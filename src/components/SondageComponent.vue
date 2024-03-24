@@ -130,7 +130,7 @@
             this.urlPageNotification = '/sondages';
           })
           .catch(error => {
-            if (error.response && error.response.status == 400) {
+            if (error.response && (error.response.status == 422 || error.response.status == 400)) {
               this.showNotification = true;
               this.notificationMessage = error.response.data.message;
             } else {
