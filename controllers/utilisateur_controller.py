@@ -8,7 +8,7 @@ class UtilController:
     @staticmethod
     def add_util(data):
         if 'mail' in data and data['mail'] is not None and 'mdp' in data and data['mdp'] is not None and 'nom' in data and data['nom'] is not None and data['mail'].strip()!='' and data['mdp'].strip()!='' and data['nom'].strip()!='':
-            if not UtilService.nom_exists(data['nom']) :
+            if UtilService.nom_exists(data['nom']) :
                 return jsonify({"sucess": False, "message": "Ce nom est déjà utilisé, veuillez en utiliser un autre"}), 422
             elif not UtilService.mail_exists(data['mail']) :
                 utilisateur = {
