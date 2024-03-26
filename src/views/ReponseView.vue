@@ -59,7 +59,10 @@
         .then(response => {
           this.reponse = response.data.reponse;
         })
-        .catch(() => {
+        .catch(error => {
+          if (error.response && error.response.status == 403) {
+            this.$router.push(`/sondages/${this.sondage_id}`);
+          }
           this.reponse = null;
         });
       }

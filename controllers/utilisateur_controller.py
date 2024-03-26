@@ -1,3 +1,4 @@
+import re
 from services.utilisateur_service import UtilService
 from flask_bcrypt import Bcrypt
 from flask import jsonify
@@ -8,6 +9,8 @@ class UtilController:
     @staticmethod
     def add_util(data):
         if 'mail' in data and data['mail'] is not None and 'mdp' in data and data['mdp'] is not None and 'nom' in data and data['nom'] is not None and data['mail'].strip()!='' and data['mdp'].strip()!='' and data['nom'].strip()!='':
+            if not re.match(r'^[\w\.-]+@[\w\.-]+(\.[\w]+)+$', data['mail']):
+                return jsonify({"success": False, "message": "Le format du mail n'est pas valide"}), 422
             if UtilService.nom_exists(data['nom']) :
                 return jsonify({"sucess": False, "message": "Ce nom est déjà utilisé, veuillez en utiliser un autre"}), 422
             elif not UtilService.mail_exists(data['mail']) :

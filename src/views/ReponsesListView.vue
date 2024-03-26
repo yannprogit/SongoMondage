@@ -49,7 +49,10 @@
             .then(response => {
             this.reponses = response.data.reponses;
             })
-            .catch(() => {
+            .catch(error => {
+            if (error.response && error.response.status == 403) {
+              this.$router.push(`/sondages/${this.id}`);
+            }
             this.reponses = [];
             });
         }
