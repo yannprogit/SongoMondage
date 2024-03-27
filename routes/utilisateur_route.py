@@ -8,10 +8,6 @@ util_blueprint = Blueprint('utilisateur', __name__)
 def post_util_route():
     return UtilController.add_util(request.get_json())
 
-@util_blueprint.route("/utilisateurs/<string:id>", methods=['GET'], endpoint='get_util')
-@ConnexionController.auth_middleware
-def get_util_route(id):
-    return UtilController.get_util(id) 
 
 @util_blueprint.route("/utilisateurs/names", methods=['GET'], endpoint='get_utils_names')
 @ConnexionController.auth_middleware
