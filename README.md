@@ -15,6 +15,8 @@ To start (front and back end) :
 - else : ./start.sh
 - You can stop the web site with stop.bat or stop.sh
 
+if you want to start only api : execute python app.py
+
 ```
 
 ### Compiles and hot-reloads for development
